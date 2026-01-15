@@ -10,8 +10,8 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
-const port = process.env.PORT || 40002;
-const serviceName = process.env.SERVICE_NAME || "inventory-service";
+const port = process.env.PORT || 4002;
+const serviceName = process.env.SERVICE_NAME || "Inventory-Service";
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
