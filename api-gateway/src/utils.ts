@@ -36,6 +36,7 @@ export const configureRoutes = (app: any) => {
     service.routes.forEach((route) => {
       route.methods.forEach((method) => {
         const handler = createHandler(hostname, route.path, method);
+        // console.log(`/api${route.path}`);
         app[method](`/api${route.path}`, handler);
       });
     });
