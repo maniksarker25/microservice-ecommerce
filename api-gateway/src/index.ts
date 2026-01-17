@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import rateLimit from "express-rate-limit";
 import morgan from "morgan";
+import { configureRoutes } from "./utils";
 
 dotenv.config();
 
@@ -23,6 +24,9 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 //TODO: auth middleware
+
+// routes
+configureRoutes(app);
 
 const PORT = process.env.PORT || 8081;
 

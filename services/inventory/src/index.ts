@@ -16,10 +16,10 @@ const port = process.env.PORT || 4002;
 const serviceName = process.env.SERVICE_NAME || "Inventory-Service";
 
 // routes
-app.put("/inventories/update/:id", updateInventory);
+app.put("/inventories/:id", updateInventory);
 app.post("/inventories", createInventory);
-app.get("/inventories/get-single/:id", getSingleInventory);
-app.get("/inventories/get-details/:id", getInventoryDetails);
+app.get("/inventories/:id", getSingleInventory);
+app.get("/inventories/:id/details", getInventoryDetails);
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
 });
