@@ -3,11 +3,16 @@ import { Request, Response } from "express";
 import config from "./config.json";
 
 export const createHandler = (hostname: string, path: string, method: string) => {
-  return async (req: Request, res: Response) => {
+  return async (req: Request | any, res: Response) => {
     try {
+      let url = `${hostname}${path}`;
+      req.params &&
+        Object.keys(req.params).forEach((param) => {
+          url = url.replace(`:${param}`, req.params[param]);
+        });
       const { data } = await axios({
         method,
-        url: `${hostname}${path}`,
+        url: url,
         data: req.body,
       });
       res.json(data);
@@ -23,12 +28,12 @@ export const createHandler = (hostname: string, path: string, method: string) =>
 };
 
 export const configureRoutes = (app: any) => {
-  Object.entries(config.services).forEach(([name, service]) => {
+  Object.entries(config.services).forEach(([_name, service]) => {
     const hostname = service.url;
     service.routes.forEach((route) => {
       route.methods.forEach((method) => {
         const handler = createHandler(hostname, route.path, method);
-        app[method](`/api/${route.path}`, handler);
+        app[method](`/api${route.path}`, handler);
       });
     });
   });
