@@ -2,8 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
-import { createInventory, getInventoryDetails, getSingleInventory } from "./controllers";
-import updateInventory from "./controllers/update_inventory";
+import { createProduct, getProductDetails, getProducts } from "./controllers";
 
 dotenv.config();
 
@@ -16,10 +15,9 @@ const port = process.env.PORT || 4002;
 const serviceName = process.env.SERVICE_NAME || "Inventory-Service";
 
 // routes
-app.put("/inventories/:id", updateInventory);
-app.post("/inventories", createInventory);
-app.get("/inventories/:id", getSingleInventory);
-app.get("/inventories/:id/details", getInventoryDetails);
+app.post("/products", createProduct);
+app.get("/products", getProducts);
+app.get("/products/:id", getProductDetails);
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
 });
