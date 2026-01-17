@@ -26,6 +26,10 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 8081;
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "UP" });
+});
+
 app.listen(PORT, () => {
   console.log(`API gateway is running on port ${PORT}`);
 });
