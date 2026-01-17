@@ -25,12 +25,31 @@ enum AccountStatus {
   SUSPENDED
 }
 
+enum LoginAttempt {
+  SUCCESS
+  FAILED
+}
+
 model User {
-  id       String        @id @default(cuid())
-  name     String
-  email    String        @unique
-  password String
-  role     Role          @default(USER)
-  verified Boolean       @default(false)
-  status   AccountStatus @default(PENDING)
+  id             String         @id @default(cuid())
+  name           String
+  email          String         @unique
+  password       String
+  role           Role           @default(USER)
+  verified       Boolean        @default(false)
+  status         AccountStatus  @default(PENDING)
+  loginHistories LoginHistory[]
+
+  createdAT DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LoginHistory {
+  id        String       @id @default(cuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipAddress String?
+  userAgent String?
+  attempt   LoginAttempt @default(SUCCESS)
+  loginAt   DateTime     @default(now())
 }
