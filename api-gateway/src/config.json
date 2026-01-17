@@ -8,7 +8,7 @@
           "methods": ["get", "post"]
         },
         {
-          "path": "/product/:id",
+          "path": "/products/:id",
           "methods": ["get"]
         }
       ]

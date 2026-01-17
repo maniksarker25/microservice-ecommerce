@@ -14,13 +14,23 @@ app.use(morgan("dev"));
 const port = process.env.PORT || 4002;
 const serviceName = process.env.SERVICE_NAME || "Inventory-Service";
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "UP" });
+});
+app.use((req, res, next) => {
+  const allowedOrigins = ["http://localhost:8081", "http://127.0.0.1:8081"];
+  const origin = req.headers.origin || "";
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    next();
+  } else {
+    res.status(403).json({ message: "Forbidden" });
+  }
+});
 // routes
 app.post("/products", createProduct);
 app.get("/products", getProducts);
 app.get("/products/:id", getProductDetails);
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "UP" });
-});
 
 app.listen(port, () => {
   console.log(`${serviceName} is running on port ${port}`);

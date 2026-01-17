@@ -39,7 +39,7 @@ const createProduct = async (req: Request, res: Response, next: NextFunction) =>
       },
     });
 
-    return res.status(201).json({ ...product, inventory: inventory.id });
+    return res.status(201).json({ ...product, inventoryId: inventory.id });
   } catch (error) {
     next(error);
   }
