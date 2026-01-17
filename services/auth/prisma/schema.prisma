@@ -40,8 +40,9 @@ model User {
   status         AccountStatus  @default(PENDING)
   loginHistories LoginHistory[]
 
-  createdAT DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAT         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  verificationCodes VerificationCode[]
 }
 
 model LoginHistory {
@@ -52,4 +53,31 @@ model LoginHistory {
   userAgent String?
   attempt   LoginAttempt @default(SUCCESS)
   loginAt   DateTime     @default(now())
+}
+
+enum VerificationStatus {
+  PENDING
+  USED
+  EXPIRED
+}
+
+enum VerificationCodeType {
+  ACCOUNT_ACTIVATION
+  PASSWORD_RESET
+  EMAIL_CHANGE
+  PHONE_CHANGE
+  TWO_FACTOR_AUTH
+  TWO_FACTOR_DISABLE
+}
+
+model VerificationCode {
+  id                 String               @id @default(cuid())
+  userId             String
+  user               User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  verificationStatus VerificationStatus   @default(PENDING)
+  code               String
+  type               VerificationCodeType @default(ACCOUNT_ACTIVATION)
+  issuedAt           DateTime             @default(now())
+  expiresAt          DateTime
+  verifiedAt         DateTime?
 }
