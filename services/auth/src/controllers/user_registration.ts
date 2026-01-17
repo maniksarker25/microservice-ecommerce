@@ -52,6 +52,9 @@ const userRegistration = async (req: Request, res: Response, next: NextFunction)
       email: user.email,
     });
 
+    // TODO: generate verification code
+    // TODO: send verification email
+
     return res.status(201).json(user);
   } catch (error) {
     next(error);
