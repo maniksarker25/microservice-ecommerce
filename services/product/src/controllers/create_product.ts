@@ -16,7 +16,7 @@ const createProduct = async (req: Request, res: Response, next: NextFunction) =>
       },
     });
 
-    if (!existingProduct) {
+    if (existingProduct) {
       return res.status(400).json({ message: "Product with the same SKU already exists" });
     }
 
