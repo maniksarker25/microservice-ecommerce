@@ -39,7 +39,7 @@ const getProductDetails = async (req: Request, res: Response, next: NextFunction
 
     // if inventor have
     const { data: inventory } = await axios.get(
-      `${INVENTORY_SERVICE_URL}/inventories/get-single/${product.inventoryId}`
+      `${INVENTORY_SERVICE_URL}/inventories/${product.inventoryId}`,
     );
     console.log("inventory", inventory);
     return res.status(200).json({
