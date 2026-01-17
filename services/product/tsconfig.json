@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Modern JS features
+    "module": "NodeNext", // For ES Modules support in Node
+    "moduleResolution": "NodeNext", // Resolves imports like Node does
+    "outDir": "dist", // Compiled JS files go here
+    "rootDir": "src", // Your TS source files
+    "strict": true, // Enable all strict type-checking
+    "esModuleInterop": true, // Allows default imports from CommonJS modules
+    "forceConsistentCasingInFileNames": true, // Prevents case-related issues on different OS
+    "skipLibCheck": true, // Skip type checking of node_modules (prevents unnecessary errors)
+    "noImplicitAny": true, // Warn if any type is inferred as 'any'
+    "noUnusedLocals": false, // Warn about unused variables
+    "noUnusedParameters": false, // Warn about unused function parameters
+    "resolveJsonModule": true, // Allows importing JSON files
+    "allowJs": false, // Only allow TS files
+    "sourceMap": true // Useful for debugging compiled JS
+  },
+  "include": ["src"], // Include all TS files in src
+  "exclude": ["node_modules", "dist"], // Exclude node_modules and compiled output
+  "paths": {
+    "@/*": ["*"] // for path alias for easy import
+  }
+}

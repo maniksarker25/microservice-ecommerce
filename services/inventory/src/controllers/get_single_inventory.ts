@@ -9,6 +9,7 @@ const getSingleInventory = async (req: Request, res: Response, next: NextFunctio
     },
     select: {
       quantity: true,
+      id: true,
     },
   });
 
