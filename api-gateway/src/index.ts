@@ -40,7 +40,7 @@ app.listen(PORT, () => {
 
 // 404 handler
 app.use((_req, res) => {
-  res.status(404).json({ message: "Not found" });
+  res.status(404).json({ message: "Api Not found" });
 });
 
 // Error handler
