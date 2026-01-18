@@ -2,7 +2,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
-import { userLogin, userRegistration, verifyToken } from "./controllers";
 
 dotenv.config();
 
@@ -11,8 +10,8 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
-const port = process.env.PORT || 4004;
-const serviceName = process.env.SERVICE_NAME || "Auth-Service";
+const port = process.env.PORT || 4005;
+const serviceName = process.env.SERVICE_NAME || "Email-Service";
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
@@ -29,9 +28,7 @@ app.get("/health", (req, res) => {
 // });
 
 // routes
-app.post("/auth/registration", userRegistration);
-app.post("/auth/login", userLogin);
-app.post("/auth/verify-token", verifyToken);
+
 app.listen(port, () => {
   console.log(`${serviceName} is running on port ${port}`);
 });
