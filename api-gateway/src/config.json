@@ -29,6 +29,31 @@
           "middlewares": ["auth"]
         }
       ]
+    },
+    "auth": {
+      "url": "http://localhost:4003",
+      "routes": [
+        {
+          "path": "/auth/register",
+          "methods": ["post"],
+          "middlewares": []
+        },
+        {
+          "path": "/auth/login",
+          "methods": ["post"],
+          "middlewares": []
+        },
+        {
+          "path": "/auth/verify-email",
+          "methods": ["post"],
+          "middlewares": []
+        },
+        {
+          "path": "/auth/verify-token",
+          "methods": ["post"],
+          "middlewares": []
+        }
+      ]
     }
   }
 }
