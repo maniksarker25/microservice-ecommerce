@@ -5,11 +5,13 @@
       "routes": [
         {
           "path": "/products",
-          "methods": ["get", "post"]
+          "methods": ["get", "post"],
+          "middlewares": ["auth"]
         },
         {
           "path": "/products/:id",
-          "methods": ["get"]
+          "methods": ["get"],
+          "middlewares": []
         }
       ]
     },
@@ -18,11 +20,13 @@
       "routes": [
         {
           "path": "/inventories/:id",
-          "methods": ["put"]
+          "methods": ["put"],
+          "middlewares": ["auth"]
         },
         {
           "path": "/inventories/:id/details",
-          "methods": ["get", "post"]
+          "methods": ["get", "post"],
+          "middlewares": ["auth"]
         }
       ]
     }
