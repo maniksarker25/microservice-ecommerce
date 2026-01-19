@@ -31,7 +31,7 @@ const verifyEmail = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     if (verificationCode.expiresAt < new Date()) {
-      res.status(400).json({ message: "Verification code expired" });
+      return res.status(400).json({ message: "Verification code expired" });
     }
 
     // update
@@ -44,21 +44,23 @@ const verifyEmail = async (req: Request, res: Response, next: NextFunction) => {
     await prisma.verificationCode.update({
       where: { id: verificationCode.id },
       data: {
-        status: VerificationStatus.USED,
+        verificationStatus: VerificationStatus.USED,
         verifiedAt: new Date(),
       },
     });
 
     // send success email
-    await axios.post(`${EMAIL_SERVICE_URL}/email/send`, {
-      to: user.email,
+    await axios.post(`${EMAIL_SERVICE_URL}/emails/send`, {
+      recipient: user.email,
       subject: "Email verified",
-      text: "Your email has been verified successfully",
-      source: "verify email",
+      body: "Your email has been verified successfully",
+      source: "verify-email",
     });
 
     return res.status(200).json({ message: "Email verified successfully" });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
 export default verifyEmail;

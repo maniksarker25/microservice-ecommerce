@@ -42,7 +42,6 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     });
 
     if (!existingUser) {
-      createLoginHistory({ userId: "Guest", userAgent, ipAddress, attempt: LoginAttempt.FAILED });
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
@@ -81,7 +80,12 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
         .status(400)
         .json({ message: `Your account is ${existingUser.status.toLocaleLowerCase()}` });
     }
-
+    createLoginHistory({
+      userId: existingUser.id,
+      userAgent,
+      ipAddress,
+      attempt: LoginAttempt.SUCCESS,
+    });
     const accessToken = jwt.sign(
       {
         userId: existingUser.id,
